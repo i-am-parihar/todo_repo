@@ -14,8 +14,19 @@ const handleaddTodo = () => {
     setToggole(!toggole) ;
 }
 useEffect(()=>{
-    axios.get("http://localhost:2345/todolist").then(res => {setData(res.data)}) ;
-    setTododata(data) ;
+    async function fetchData() {
+        try {
+            const response = await fetch(
+                `http://localhost:2345/todolist`
+            );
+            const res = await response.json();
+            setData(res.data);
+            console.log(data) ;
+        } catch (e) {
+            console.error(e);
+        }
+    };
+    fetchData();
 },[toggole]) 
 
 // Delete perticular id data from back-end
