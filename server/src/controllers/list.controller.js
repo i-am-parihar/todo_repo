@@ -13,6 +13,18 @@ router.get("" , async(req,res) => {
     }
 })
 
+// Get data by id
+router.get("/:id" , async(req,res) => {
+    try{
+        const listData = await List.findById(req.params.id).lean().exec() ;
+        return res.send(listData) ;
+    }
+    catch(er){
+        return res.status(500).send(er.message) ;
+    }
+})
+
+
 // Post data to server
 router.post("" , async(req,res) => {
     try{
